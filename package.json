@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "heroku": "^7.47.4",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^5.5.0",
+    "selenium-webdriver": "^4.0.0-alpha.8"
   },
   "engines": {
     "node": "v12.19.0",

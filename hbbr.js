@@ -1,13 +1,11 @@
-const express = require('express')
 const puppeteer = require('puppeteer')
-const app = express()
-const PORT = process.env.PORT
+
 const id = 'guseul.heo'
 const pw = 'park1234!'
 
 
 const crawl = async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.goto('https://my.parksystems.com/ekp/view/login/userLogin', { waitUntil: 'load' });
@@ -31,19 +29,17 @@ const crawl = async () => {
         console.log('wait done')
         const links = await page.evaluate(() => {
             const arr = document.getElementById('atnMainAbsentList_list').innerText
+            console.log(arr)
             return arr
         });
-        browser.close();
-        return links
+        console.log('"', links, '"')
+        if (!links) console.log('no data')
     } else {
-        browser.close();
-        return []
+        console.log('no button')
     }
+    // browser.close();
+
 }
 
-app.get("/", async (req, res) => {
-    const text = await crawl()
-    res.send({ hello: text });
-});
 
-app.listen(PORT);
+crawl()
