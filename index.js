@@ -1,10 +1,35 @@
 const express = require('express')
 const puppeteer = require('puppeteer')
+const Slack = require('slack-node')
 const app = express()
 const PORT = process.env.PORT
 const id = 'guseul.heo'
 const pw = 'park1234!'
+const webhookuri = 'https://hooks.slack.com/services/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'
 
+const slack = new Slack()
+slack.setWebhook(webhookuri)
+const sendNotice = async (message) => {
+    slack.webhook({
+        text: message,
+        attachments: [
+            {
+                fallback: "fallback",
+                pretext: "pretext",
+                color: "#00FFFF",
+                fields: [
+                    {
+                        title: "알림",
+                        value: "해당링크를 클릭하여 검색해 보세요.",
+                        short: false
+                    }
+                ]
+            }
+        ]
+    }, function (err, response) {
+        console.log(response);
+    });
+}
 
 const crawl = async () => {
     const browser = await puppeteer.launch();
@@ -42,7 +67,7 @@ const crawl = async () => {
 }
 
 app.get("/", async (req, res) => {
-    const text = await crawl()
+    const text = sendNotice('hello')
     res.send({ hello: text });
 });
 
