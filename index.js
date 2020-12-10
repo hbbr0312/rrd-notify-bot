@@ -74,8 +74,8 @@ const crawl = async () => {
 }
 
 app.get("/", async (req, res) => {
-    const vacationers = await crawl()
-    sendNotice(vacationers)
+    // const vacationers = await crawl()
+    sendNotice('scheduling..')
     res.send({ vacationers });
 });
 
