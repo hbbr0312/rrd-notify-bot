@@ -49,7 +49,12 @@ const sendNotice = async (message) => {
 }
 
 const crawl = async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        'args': [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+        ]
+    });
     const page = await browser.newPage();
     await page.goto('https://my.parksystems.com/ekp/view/login/userLogin', { waitUntil: 'load' });
     await page.evaluate((text) => { (document.getElementById('userId')).value = text; }, id);
@@ -109,14 +114,23 @@ const convert_to_infomation = (vacationer) => {
     return `${name} ${position} : ${vacation_type}`
 }
 
-const main = async () => {
-    const today_vacationers = await crawl()
-    const rrd_vacationers = filter_rrd(today_vacationers)
-    rrd_vacationers.forEach(element => {
-        element[3] = parse_vacation_type(element[3])
-    });
-    const rrd_vacatiners_info = rrd_vacationers.map(e => convert_to_infomation(e)).join('\n')
-    sendNotice(rrd_vacatiners_info)
+const sortfunc = (a, b) => {
+    if (a[3] == '휴가') return -1
+    else if (a[3] == '오전반차') return 0;
+    else return 1
 }
 
+const main = async () => {
+    let rrd_vacatiners_info = '부재자가 없습니다.'
+    const today_vacationers = await crawl()
+    const rrd_vacationers = filter_rrd(today_vacationers)
+    if (rrd_vacationers.length > 0) {
+        rrd_vacationers.forEach(element => {
+            element[3] = parse_vacation_type(element[3])
+        });
+        rrd_vacationers.sort(sortfunc)
+        rrd_vacatiners_info = rrd_vacationers.map(e => convert_to_infomation(e)).join('\n')
+    }
+    sendNotice(rrd_vacatiners_info)
+}
 main()
