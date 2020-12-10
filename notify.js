@@ -1,4 +1,5 @@
 
+// TODO: uri, id, pw 등 env로 빼기
 const Slack = require('slack-node')
 const webhookuri = 'https://hooks.slack.com/services/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'
 const slack = new Slack()

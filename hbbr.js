@@ -5,9 +5,8 @@ const pw = 'park1234!'
 
 
 const crawl = async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();//{ headless: false }
     const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(0);
     await page.goto('https://my.parksystems.com/ekp/view/login/userLogin', { waitUntil: 'load' });
     await page.evaluate((text) => { (document.getElementById('userId')).value = text; }, id);
     await page.type('[name=password]', pw);
@@ -26,10 +25,12 @@ const crawl = async () => {
     if (modalOpenBtn) {
         await modalOpenBtn.click()
         await page.waitForSelector("tbody#atnMainAbsentList_list")
+        await page.waitForFunction(selector => document.querySelector(selector).innerText.length > 0,
+            {},
+            '#atnMainAbsentList_list');
         console.log('wait done')
         const links = await page.evaluate(() => {
             const arr = document.getElementById('atnMainAbsentList_list').innerText
-            console.log(arr)
             return arr
         });
         console.log('"', links, '"')
@@ -37,9 +38,16 @@ const crawl = async () => {
     } else {
         console.log('no button')
     }
-    // browser.close();
+    browser.close();
 
 }
 
 
 crawl()
+
+// rawString = document.getElementById('atnMainAbsentList_list').innerText
+// arr = rawString.split('\n').map(e => e.trim())
+// for (var i=0; i<arr.length/dx; i++) {
+//     console.log(arr.slice(idx, idx+dx))
+//     idx += dx
+// }
