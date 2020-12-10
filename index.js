@@ -11,6 +11,8 @@ const slack = new Slack()
 slack.setWebhook(webhookuri)
 const sendNotice = async (message) => {
     slack.webhook({
+        icon_emoji: ':beach_with_umbrella:',
+        username: 'RRD 휴가자 알림봇',
         text: message,
         attachments: [
             {
@@ -67,8 +69,9 @@ const crawl = async () => {
 }
 
 app.get("/", async (req, res) => {
-    const text = sendNotice('hello')
-    res.send({ hello: text });
+    const vacationers = await crawl()
+    sendNotice(vacationers)
+    res.send({ vacationers });
 });
 
 app.listen(PORT);
