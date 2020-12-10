@@ -17,7 +17,6 @@ const sendNotice = async (message) => {
         attachments: [
             {
                 fallback: "fallback",
-                pretext: "pretext",
                 color: "#00FFFF",
                 fields: [
                     {
