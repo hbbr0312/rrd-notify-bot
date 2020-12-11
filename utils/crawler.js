@@ -14,6 +14,7 @@ const crawl = async () => {
         ]
     });
     const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
     await page.goto(groupwareURI, { waitUntil: 'load' });
     await page.evaluate((text) => { (document.getElementById('userId')).value = text; }, id);
     await page.type('[name=password]', pw);
