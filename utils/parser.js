@@ -1,6 +1,7 @@
+const RRD_TEAMS = process.env.RRD_TEAMS
+
 const filterRRD = (vacationers) => {
-    const rrdTeamsStr = String(process.env.RRD_TEAMS)
-    const rrdTeams = rrdTeamsStr.split(',')
+    const rrdTeams = RRD_TEAMS.split(',')
     return vacationers.filter(e => rrdTeams.includes(e[2]))
 }
 
