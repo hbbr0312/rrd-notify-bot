@@ -9,9 +9,9 @@ const isWeekend = () => {
 
 const notify = async () => {
     if (isWeekend()) return
-    const today_vacationers = await crawler.crawl()
-    const rrd_vacatiners_info = parser.parse(today_vacationers)
-    sender.sendNotice(rrd_vacatiners_info)
+    const psVacationers = await crawler.crawl()
+    const rrdVacationersInfo = parser.parse(psVacationers)
+    sender.sendNotice(rrdVacationersInfo)
 }
 
 exports.notify = notify

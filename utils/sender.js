@@ -1,10 +1,9 @@
-const webhookuri = process.env.WEBHOOK_URI
-// const webhookuri = 'https://hooks.slack.com/services/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'
+const webhookURI = process.env.WEBHOOK_URI
 const Slack = require('slack-node')
 const slack = new Slack()
-slack.setWebhook(webhookuri)
+slack.setWebhook(webhookURI)
 
-const formatDate = () => {
+const getDate = () => {
     var d = new Date(),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -19,11 +18,11 @@ const formatDate = () => {
 }
 
 const sendNotice = async (message) => {
-    const date = formatDate()
+    const today = getDate()
     slack.webhook({
         icon_emoji: ':beach_with_umbrella:',
         username: 'RRD 부재자 알림봇',
-        text: `${date} RRD 부재자 명단입니다.`,
+        text: `${today} RRD 부재자 명단입니다.`,
         attachments: [
             {
                 fallback: "fallback",
