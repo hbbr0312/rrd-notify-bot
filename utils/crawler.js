@@ -3,6 +3,9 @@ const id = process.env.USERNAME
 const pw = process.env.PASSWORD
 const groupwareURI = process.env.GROUPWARE_URI
 
+// TODO: crawling 실패 메시지 추가 (실제로 부재자없음과 크롤링 실패 구분 필요)
+// 만약 크롤링 실패할경우 error 알림용 private channel로 에러 메시지? 전송
+// 만약 크롤링 성공하면 rrd-notice 채널에 알림 메시지 전송 
 const crawl = async () => {
     const browser = await puppeteer.launch({
         'args': [
