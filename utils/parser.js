@@ -1,5 +1,5 @@
 const filterRRD = (vacationers) => {
-    const rrdTeams = ['통합운영팀', 'FX전담팀', '분석설계팀', '개발1팀', '개발2팀', '품질개발팀']
+    const rrdTeams = process.env.RRD_TEAMS.split(',')
     return vacationers.filter(e => rrdTeams.includes(e[2]))
 }
 
