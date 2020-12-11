@@ -3,9 +3,9 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT
 
-app.get("/", async (req, res) => {
-    await noticer.notify()
-    res.send({ notify: true });
+app.get("/", (req, res) => {
+    noticer.notify()
+    res.send({ message: 'Notification will be sent soon ... please wait' });
 });
 
 app.listen(PORT);
