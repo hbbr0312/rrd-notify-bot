@@ -14,7 +14,7 @@ console.log(id)
 // 만약 크롤링 실패할경우 error 알림용 private channel로 에러 메시지? 전송
 // 만약 크롤링 성공하면 rrd-notice 채널에 알림 메시지 전송 
 const crawl = async () => {
-    const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     try {
         console.log('start to crawl')
         const page = await browser.newPage();

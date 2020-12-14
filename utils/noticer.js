@@ -9,7 +9,11 @@ const isWeekend = () => {
 }
 
 const notify = async () => {
-    if (isWeekend()) return
+    console.log('day:', new Date().getDay())
+    if (isWeekend()) {
+        console.log('오늘은 휴일입니다.')
+        return
+    }
     const [errorMessage, psVacationers] = await crawler.crawl()
     if (errorMessage) {
         bugReporter.sendErrorMessage(errorMessage)
