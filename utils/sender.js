@@ -1,4 +1,4 @@
-const webhookURI = process.env.WEBHOOK_URI
+const webhookURI = process.env.WEBHOOK_URI// || 'https://hooks.slack.com/services/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'
 const Slack = require('slack-node')
 const slack = new Slack()
 slack.setWebhook(webhookURI)
