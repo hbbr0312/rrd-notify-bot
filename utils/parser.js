@@ -1,4 +1,4 @@
-const RRD_TEAMS = process.env.RRD_TEAMS //|| '통합운영팀,FX전담팀,분석설계팀,개발1팀,개발2팀,품질개발팀'
+const RRD_TEAMS = process.env.RRD_TEAMS
 
 const filterRRD = (vacationers) => {
     const rrdTeams = RRD_TEAMS.split(',')

@@ -1,14 +1,9 @@
 const puppeteer = require('puppeteer')
 
-// const id = 'guseul.heo' // process.env.USERNAME
-// const pw = 'park1234!' //process.env.PASSWORD
-// const groupwareURI = 'https://my.parksystems.com/ekp/main/home/homGwMain' //process.env.GROUPWARE_URI
-
 const id = process.env.USERNAME
 const pw = process.env.PASSWORD
 const groupwareURI = process.env.GROUPWARE_URI
 
-console.log(id)
 
 // TODO: crawling 실패 메시지 추가 (실제로 부재자없음과 크롤링 실패 구분 필요)
 // 만약 크롤링 실패할경우 error 알림용 private channel로 에러 메시지? 전송

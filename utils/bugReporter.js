@@ -1,10 +1,9 @@
-const debugReportURI = process.env.WEBHOOK_URI_FOR_DEBUG// || 'https://hooks.slack.com/services/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'
+const debugReportURI = process.env.WEBHOOK_URI_FOR_DEBUG
 const Slack = require('slack-node')
 const slack = new Slack()
 slack.setWebhook(debugReportURI)
 
 const sendErrorMessage = async (message) => {
-    const today = getDate()
     slack.webhook({
         icon_emoji: ':beach_with_umbrella:',
         username: 'RRD 부재자 알림봇 Error Report',
