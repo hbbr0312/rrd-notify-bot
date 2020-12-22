@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer')
 
+// const id = 'guseul.heo' // process.env.USERNAME
+// const pw = 'park1234!' //process.env.PASSWORD
+// const groupwareURI = 'https://my.parksystems.com/ekp/main/home/homGwMain' //process.env.GROUPWARE_URI
+
 const id = process.env.USERNAME
 const pw = process.env.PASSWORD
 const groupwareURI = process.env.GROUPWARE_URI
 
-
-// TODO: crawling 실패 메시지 추가 (실제로 부재자없음과 크롤링 실패 구분 필요)
-// 만약 크롤링 실패할경우 error 알림용 private channel로 에러 메시지? 전송
-// 만약 크롤링 성공하면 rrd-notice 채널에 알림 메시지 전송 
 const crawl = async () => {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     try {
@@ -25,7 +25,7 @@ const crawl = async () => {
         } catch (error) {
             console.log(error)
             browser.close();
-            return ['Login failed', null]
+            return [false, null, 'Login failed']
         }
         const end = new Date().getTime();
         console.log(`${end - start} seconds passed`)
@@ -51,15 +51,15 @@ const crawl = async () => {
                     }
                     psVacationers.push(vacationer)
                 }
-                return [null, psVacationers]
+                return [true, psVacationers, null]
             });
         } else {
-            return ['Absent button does not exists', null]
+            return [false, null, 'Absent button does not exists']
         }
         return todayPsVacationers
     } catch (err) {
         console.error(err.message);
-        return [err.message, null]
+        return [false, null, err.message]
     } finally {
         await browser.close();
     }
