@@ -22,6 +22,7 @@ const notify = async () => {
         if (success) {
             const rrdVacationersInfo = parser.parse(psVacationers)
             sender.sendNotice(rrdVacationersInfo)
+            console.log(`# of trials: ${i + 1}`)
             return
         } else {
             errorMessages.push(errorMessage)
