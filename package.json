@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "moment-timezone": "^0.5.32",
     "puppeteer": "^5.5.0",
     "slack-node": "^0.1.8"
   },

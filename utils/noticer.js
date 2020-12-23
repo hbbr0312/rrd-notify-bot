@@ -1,16 +1,18 @@
+const moment = require('moment-timezone')
 const crawler = require('./crawler.js')
 const sender = require('./sender.js')
 const parser = require('./parser.js')
 const errorReporter = require('./errorReporter.js')
 
 const isWeekend = () => {
-    const day = new Date().getDay()
+    const day = moment().tz('Asia/Seoul').day()
+    console.log('day:', day)
     return day % 6 == 0
 }
 
 const notify = async () => {
     const num_trials = 30
-    console.log('day:', new Date().getDay())
+
     if (isWeekend()) {
         console.log('오늘은 휴일입니다.')
         return
