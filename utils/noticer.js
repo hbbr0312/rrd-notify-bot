@@ -5,7 +5,9 @@ const parser = require('./parser.js')
 const errorReporter = require('./errorReporter.js')
 
 const isWeekend = () => {
-    const day = moment().tz('Asia/Seoul').day()
+    const now = moment().tz('Asia/Seoul')
+    const day = now.day()
+    console.log(now.format())
     console.log('day:', day)
     return day % 6 == 0
 }
