@@ -7,7 +7,7 @@ const errorReporter = require('./errorReporter.js')
 const isWeekend = () => {
     const now = moment().tz('Asia/Seoul')
     const day = now.day()
-    console.log(now.format())
+    console.log(now.format('llll'))
     console.log('day:', day)
     return day % 6 == 0
 }
