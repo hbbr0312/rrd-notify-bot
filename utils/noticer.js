@@ -30,6 +30,7 @@ const notify = async () => {
             return
         } else {
             errorMessages.push(errorMessage)
+            console.error(errorMessage)
         }
     }
     // num_trials번 시도에도 실패시 Error 메시지 전송
