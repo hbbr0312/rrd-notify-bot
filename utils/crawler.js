@@ -13,7 +13,7 @@ const crawl = async () => {
     try {
         console.log('start to crawl')
         const page = await browser.newPage();
-        await page.setDefaultNavigationTimeout(40000);
+        await page.setDefaultNavigationTimeout(60000);
         await page.emulateTimezone('Asia/Seoul');
         await page.goto(groupwareURI, { waitUntil: 'load' });
         await page.evaluate((text) => { (document.getElementById('userId')).value = text; }, id);
@@ -29,7 +29,7 @@ const crawl = async () => {
             return [false, null, 'Login failed']
         }
         const end = new Date().getTime();
-        console.log(`${end - start} seconds passed`)
+        console.log(`${(end - start) / 1000} seconds passed`)
         const [modalOpenBtn] = await page.$x('//*[@id="ptlAbsent_count"]')
         let todayPsVacationers = []
         if (modalOpenBtn) {
