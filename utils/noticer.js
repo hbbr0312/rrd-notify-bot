@@ -4,11 +4,6 @@ const sender = require('./sender.js')
 const parser = require('./parser.js')
 const errorReporter = require('./errorReporter.js')
 
-const getNow = () => {
-    const now = moment().tz('Asia/Seoul')
-    return now
-}
-
 const isWeekend = (now) => {
     const day = now.day()
     console.log(now.format('llll'))
@@ -18,7 +13,7 @@ const isWeekend = (now) => {
 
 const notify = async () => {
     const num_trials = 30
-    const now = getNow()
+    const now = moment().tz('Asia/Seoul')
     const today = now.format('YYYY-MM-DD')
     if (isWeekend(now)) {
         console.log('오늘은 휴일입니다.')
