@@ -4,8 +4,12 @@ const sender = require('./sender.js')
 const parser = require('./parser.js')
 const errorReporter = require('./errorReporter.js')
 
-const isWeekend = () => {
+const getNow = () => {
     const now = moment().tz('Asia/Seoul')
+    return now
+}
+
+const isWeekend = (now) => {
     const day = now.day()
     console.log(now.format('llll'))
     console.log('day:', day)
@@ -14,8 +18,9 @@ const isWeekend = () => {
 
 const notify = async () => {
     const num_trials = 30
-
-    if (isWeekend()) {
+    const now = getNow()
+    const today = now.format('YYYY-MM-DD')
+    if (isWeekend(now)) {
         console.log('오늘은 휴일입니다.')
         return
     }
@@ -25,7 +30,7 @@ const notify = async () => {
         const [success, psVacationers, errorMessage] = await crawler.crawl()
         if (success) {
             const rrdVacationersInfo = parser.parse(psVacationers)
-            sender.sendNotice(rrdVacationersInfo)
+            sender.sendNotice(today, rrdVacationersInfo)
             console.log(`# of trials: ${i + 1}`)
             return
         } else {

@@ -1,24 +1,9 @@
-const webhookURI = process.env.WEBHOOK_URI// || 'https://hooks.slack.com/services/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'
+const webhookURI = process.env.WEBHOOK_URI
 const Slack = require('slack-node')
 const slack = new Slack()
 slack.setWebhook(webhookURI)
 
-const getDate = () => {
-    var d = new Date(),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-
-    return [year, month, day].join('-');
-}
-
-const sendNotice = async (message) => {
-    const today = getDate()
+const sendNotice = async (today, message) => {
     slack.webhook({
         icon_emoji: ':beach_with_umbrella:',
         username: 'RRD 부재자 알림봇',
