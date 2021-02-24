@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer')
-
 const id = process.env.USERNAME
 const pw = process.env.PASSWORD
 const groupwareURI = process.env.GROUPWARE_URI
