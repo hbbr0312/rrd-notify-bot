@@ -1,4 +1,4 @@
-const RRD_TEAMS = process.env.RRD_TEAMS //|| '통합운영팀,FX전담팀,분석설계팀,개발1팀,개발2팀,품질개발팀'
+const RRD_TEAMS = process.env.RRD_TEAMS
 
 const filterRRD = (vacationers) => {
     const rrdTeams = RRD_TEAMS.split(',')
@@ -24,7 +24,7 @@ const descendingVacationTime = (a, b) => {
 
 const parse = (psVacationers) => {
     let rrdVacationerInfo = '부재자가 없습니다.'
-    const rrdVactioners = filterRRD(psVacationers)
+    const rrdVactioners = filterRRD(psVacationers).reverse()
     if (rrdVactioners.length > 0) {
         rrdVactioners.forEach(e => {
             e[3] = parseVacationType(e[3])

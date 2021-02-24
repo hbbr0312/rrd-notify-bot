@@ -1,9 +1,5 @@
 const puppeteer = require('puppeteer')
 
-// const id = 'guseul.heo' // process.env.USERNAME
-// const pw = 'park1234!' //process.env.PASSWORD
-// const groupwareURI = 'https://my.parksystems.com/ekp/main/home/homGwMain' //process.env.GROUPWARE_URI
-
 const id = process.env.USERNAME
 const pw = process.env.PASSWORD
 const groupwareURI = process.env.GROUPWARE_URI
