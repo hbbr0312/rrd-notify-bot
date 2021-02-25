@@ -16,21 +16,18 @@ const getInfoText = (vacationer) => {
     return `${name} ${position} : ${vacation_type}`
 }
 
-const descendingVacationTime = (a, b) => {
-    if (a[3] == '휴가') return -1
-    else if (a[3] == '오전반차') return 0;
-    else return 1
-}
-
 const parse = (psVacationers) => {
     let rrdVacationerInfo = '부재자가 없습니다.'
-    const rrdVactioners = filterRRD(psVacationers).reverse()
+    const rrdVactioners = filterRRD(psVacationers)
     if (rrdVactioners.length > 0) {
         rrdVactioners.forEach(e => {
             e[3] = parseVacationType(e[3])
         });
-        rrdVactioners.sort(descendingVacationTime)
-        rrdVacationerInfo = rrdVactioners.map(e => getInfoText(e)).join('\n')
+        const dayOff = rrdVactioners.filter(e => e[3] == '휴가')
+        const mrOff = rrdVactioners.filter(e => e[3].includes('오전'))
+        const anOff = rrdVactioners.filter(e => e[3].includes('오후'))
+        const sorted_vacationers = dayOff.concat(mrOff).concat(anOff)
+        rrdVacationerInfo = sorted_vacationers.map(e => getInfoText(e)).join('\n')
     }
     return rrdVacationerInfo
 }
